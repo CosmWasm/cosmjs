@@ -43,19 +43,16 @@ const wasmFile = ".../cosmwasm-examples/mask/contract.wasm"
 const wasm = fs.readFileSync(wasmFile);
 
 // Then upload it
-const up = await client.upload(wasm, { source: "https://crates.io/api/v1/crates/cw-mask/0.1.0/download", builder: "confio/cosmwasm-opt:0.7.3"});
-up
-up.logs[0].events[0]
+const uploadResult = await client.upload(wasm, { source: "https://crates.io/api/v1/crates/cw-mask/0.1.0/download", builder: "confio/cosmwasm-opt:0.7.3"});
+uploadResult
+uploadResult.logs[0].events[0]
 ```
 
 Now, make an instance (as above):
 
 ```ts
-// get the proper codeId
-const codes = await client.getCodes()
-const codeId = codes.filter(x => x.checksum === hash).map(x => x.id)[0]
-
 // instantiate one contract
+const codeId = uploadResult.codeId;
 const maskResp = await client.instantiate(codeId, {}, "My Mask");
 const mask = maskResp.contractAddress;
 
