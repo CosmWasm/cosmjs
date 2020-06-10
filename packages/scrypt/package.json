@@ -1,0 +1,42 @@
+{
+  "name": "@cosmwasm/scrypt",
+  "version": "0.8.0",
+  "description": "An scrypt implementation that ships a Wasm implementation and a pure JS fallback",
+  "author": "Simon Warta <webmaster128@users.noreply.github.com>",
+  "license": "Apache-2.0",
+  "main": "build/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "build/",
+    "types/",
+    "*.md",
+    "!*.spec.*",
+    "!**/testdata/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/confio/cosmwasm-js/tree/master/packages/scrypt"
+  },
+  "private": true,
+  "scripts": {
+    "docs": "shx rm -rf docs && typedoc --options typedoc.js",
+    "format": "prettier --write --loglevel warn \"./src/**/*.ts\"",
+    "lint": "eslint --max-warnings 0 \"**/*.{js,ts}\"",
+    "lint-fix": "eslint --max-warnings 0 \"**/*.{js,ts}\" --fix",
+    "move-types": "shx rm -rf ./types/* && shx mv build/types/* ./types && rm -rf ./types/testdata && shx rm -f ./types/*.spec.d.ts",
+    "format-types": "prettier --write --loglevel warn \"./types/**/*.d.ts\"",
+    "build": "shx rm -rf ./build && tsc && yarn move-types && yarn format-types",
+    "build-or-skip": "[ -n \"$SKIP_BUILD\" ] || yarn build",
+    "test-node": "node jasmine-testrunner.js",
+    "test-firefox": "yarn pack-web && karma start --single-run --browsers Firefox",
+    "test-chrome": "yarn pack-web && karma start --single-run --browsers Chrome",
+    "test": "yarn build-or-skip && yarn test-node",
+    "pack-web": "yarn build-or-skip && webpack --mode development --config webpack.web.config.js"
+  },
+  "dependencies": {
+    "@iov/encoding": "^2.1.0",
+    "scrypt-js": "^3"
+  },
+  "devDependencies": {
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "build",
+    "declarationDir": "build/types",
+    "rootDir": "src",
+    "allowJs": true,
+    "noEmitOnError": false, // Workaround for https://github.com/karma-runner/karma/issues/3529
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

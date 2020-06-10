@@ -1,0 +1,12 @@
+node_modules/
+
+build/
+custom_types/
+dist/
+docs/
+examples/
+generated/
+types/
+
+# generated code
+src/scrypt_wasm/
