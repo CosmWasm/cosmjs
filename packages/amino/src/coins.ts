@@ -28,7 +28,7 @@ export function parseCoins(input: string): Coin[] {
     .split(",")
     .filter(Boolean)
     .map((part) => {
-      const match = part.match(/^([0-9]+)([a-zA-Z]+)/);
+      const match = part.match(/^([0-9]+)([a-zA-Z][a-zA-Z0-9/-]{2,127})$/);
       if (!match) throw new Error("Got an invalid coin string");
       return {
         amount: Uint64.fromString(match[1]).toString(),
